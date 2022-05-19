@@ -30,7 +30,7 @@ public class Account extends AggregateEvent<AccountId> {
     protected Client client;
     protected Type type;
 
-    public Account(AccountId accountId, Client client, Order order, Receipt receipt ,Type type) {
+    public Account(AccountId accountId, Client client, Order order, Receipt receipt, Type type) {
         super(accountId);
         appendChange(new AccountCreated(client, order, receipt, type)).apply();
         subscribe(new AccountEventChange(this));
@@ -47,15 +47,38 @@ public class Account extends AggregateEvent<AccountId> {
         return account;
     }
 
+    /**
+     * Update client's name
+     *
+     * @param name String
+     */
     public void updateClientName(Name name) {
         appendChange(new ClientNameUpdated(name)).apply();
     }
+
+    /**
+     * Update client's phone
+     *
+     * @param phone String
+     */
     public void updateClientPhone(Phone phone) {
         appendChange(new ClientPhoneUpdated(phone)).apply();
     }
+
+    /**
+     * Update order's description
+     *
+     * @param description String
+     */
     public void updateOrderDescription(Description description) {
         appendChange(new OrderDescriptionUpdated(description)).apply();
     }
+
+    /**
+     * Update order's address
+     *
+     * @param address String
+     */
     public void updateOrderAddress(Address address) {
         appendChange(new OrderAddressUpdated(address)).apply();
     }
