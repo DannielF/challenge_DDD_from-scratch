@@ -95,53 +95,57 @@ public class Account extends AggregateEvent<AccountId> {
     /**
      * Update client's name
      *
-     * @param name String
+     * @param clientId Identity
+     * @param name     String
      */
-    public void updateClientName(Name name) {
-        appendChange(new ClientNameUpdated(name)).apply();
+    public void updateClientName(ClientId clientId, Name name) {
+        appendChange(new ClientNameUpdated(clientId, name)).apply();
     }
 
     /**
      * Update client's phone
      *
-     * @param phone String
+     * @param clientId Identity
+     * @param phone    String
      */
-    public void updateClientPhone(Phone phone) {
-        appendChange(new ClientPhoneUpdated(phone)).apply();
+    public void updateClientPhone(ClientId clientId, Phone phone) {
+        appendChange(new ClientPhoneUpdated(clientId, phone)).apply();
     }
 
     /**
      * Update order's description
      *
+     * @param orderId     Identity
      * @param description String
      */
-    public void updateOrderDescription(Description description) {
-        appendChange(new OrderDescriptionUpdated(description)).apply();
+    public void updateOrderDescription(OrderId orderId, Description description) {
+        appendChange(new OrderDescriptionUpdated(orderId, description)).apply();
     }
 
     /**
      * Update order's address
      *
+     * @param orderId Identity
      * @param address String
      */
-    public void updateOrderAddress(Address address) {
-        appendChange(new OrderAddressUpdated(address)).apply();
+    public void updateOrderAddress(OrderId orderId, Address address) {
+        appendChange(new OrderAddressUpdated(orderId, address)).apply();
     }
 
     //Getters
-    public Order getOrder() {
+    public Order order() {
         return order;
     }
 
-    public Receipt getReceipt() {
+    public Receipt receipt() {
         return receipt;
     }
 
-    public Client getClient() {
+    public Client client() {
         return client;
     }
 
-    public Type getType() {
+    public Type type() {
         return type;
     }
 }

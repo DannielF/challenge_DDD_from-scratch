@@ -58,18 +58,46 @@ public class Delivery extends AggregateEvent<DeliveryId> {
         return delivery;
     }
 
+    /**
+     * Update the state
+     *
+     * @param state Enum
+     */
     public void updateState(State state) {
         appendChange(new StateUpdated(state)).apply();
     }
 
-    public void addTransport(TransportId transportId,Vehicle vehicle, Product product, Quantity quantity, Load load) {
+    /**
+     * Add a transport
+     *
+     * @param transportId Identity
+     * @param vehicle     String
+     * @param product     String
+     * @param quantity    Integer
+     * @param load        Double
+     */
+    public void addTransport(TransportId transportId, Vehicle vehicle, Product product, Quantity quantity, Load load) {
         appendChange(new TransportAdded(transportId, vehicle, product, quantity, load)).apply();
     }
 
+    /**
+     * Add a deliverer
+     *
+     * @param delivererId  Identity
+     * @param name         String
+     * @param typeContract String
+     */
     public void addDeliverer(DelivererId delivererId, Name name, TypeContract typeContract) {
         appendChange(new DelivererAdded(delivererId, name, typeContract)).apply();
     }
 
+    /**
+     * Add an invoices
+     *
+     * @param invoiceId   Identity
+     * @param constraints String
+     * @param date        Instant
+     */
     public void addInvoice(InvoiceId invoiceId, Constraints constraints, Date date) {
         appendChange(new InvoiceAdded(invoiceId, constraints, date)).apply();
     }

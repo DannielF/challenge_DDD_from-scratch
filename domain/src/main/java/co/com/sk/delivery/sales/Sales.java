@@ -90,19 +90,19 @@ public class Sales extends AggregateEvent<SalesId> {
     }
 
     //Getters
-    public Manager getManager() {
+    public Manager manager() {
         return manager;
     }
 
-    public Vendor getVendor() {
+    public Vendor vendor() {
         return vendor;
     }
 
-    public Consultant getConsultant() {
+    public Consultant consultant() {
         return consultant;
     }
 
-    public NumberOfSales getNumberOfSales() {
+    public NumberOfSales numberOfSales() {
         return numberOfSales;
     }
 }
