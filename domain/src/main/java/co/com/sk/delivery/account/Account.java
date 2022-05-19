@@ -2,8 +2,12 @@ package co.com.sk.delivery.account;
 
 import co.com.sk.delivery.account.events.AccountCreated;
 import co.com.sk.delivery.account.events.ClientAdded;
+import co.com.sk.delivery.account.events.OrderAdded;
 import co.com.sk.delivery.account.values.AccountId;
+import co.com.sk.delivery.account.values.Address;
 import co.com.sk.delivery.account.values.ClientId;
+import co.com.sk.delivery.account.values.Description;
+import co.com.sk.delivery.account.values.OrderId;
 import co.com.sk.delivery.account.values.Phone;
 import co.com.sk.delivery.account.values.Type;
 import co.com.sk.delivery.generic.values.Name;
@@ -46,5 +50,10 @@ public class Account extends AggregateEvent<AccountId> {
     public void addClient(Name name, Phone phone) {
         var clientId = new ClientId("client");
         appendChange(new ClientAdded(clientId, name, phone)).apply();
+    }
+
+    public void addOrder(Description description, Address address) {
+        var orderId = new OrderId("order");
+        appendChange(new OrderAdded(orderId, description, address)).apply();
     }
 }

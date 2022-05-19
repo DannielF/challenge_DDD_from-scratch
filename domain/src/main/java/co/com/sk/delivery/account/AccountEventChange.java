@@ -2,6 +2,7 @@ package co.com.sk.delivery.account;
 
 import co.com.sk.delivery.account.events.AccountCreated;
 import co.com.sk.delivery.account.events.ClientAdded;
+import co.com.sk.delivery.account.events.OrderAdded;
 import co.com.sofka.domain.generic.EventChange;
 
 /**
@@ -18,6 +19,11 @@ public class AccountEventChange extends EventChange {
         apply((ClientAdded event) -> {
             var clientId = event.clientId();
             account.client = new Client(clientId, event.name(), event.phone());
+        });
+
+        apply((OrderAdded event) -> {
+            var orderId = event.orderId();
+            account.order = new Order(orderId, event.description(), event.address());
         });
     }
 }
