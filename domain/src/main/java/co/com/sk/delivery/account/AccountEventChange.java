@@ -1,6 +1,8 @@
 package co.com.sk.delivery.account;
 
 import co.com.sk.delivery.account.events.AccountCreated;
+import co.com.sk.delivery.account.events.ClientNameUpdated;
+import co.com.sk.delivery.account.events.ClientPhoneUpdated;
 import co.com.sofka.domain.generic.EventChange;
 
 /**
@@ -18,5 +20,9 @@ public class AccountEventChange extends EventChange {
             account.receipt = event.receipt();
             account.type = event.typeAccount();
         });
+
+        apply((ClientNameUpdated event) -> account.client.updateName(event.name()));
+
+        apply((ClientPhoneUpdated event) -> account.client.updatePhone(event.phone()));
     }
 }
