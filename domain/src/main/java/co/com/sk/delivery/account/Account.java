@@ -3,7 +3,11 @@ package co.com.sk.delivery.account;
 import co.com.sk.delivery.account.events.AccountCreated;
 import co.com.sk.delivery.account.events.ClientNameUpdated;
 import co.com.sk.delivery.account.events.ClientPhoneUpdated;
+import co.com.sk.delivery.account.events.OrderAddressUpdated;
+import co.com.sk.delivery.account.events.OrderDescriptionUpdated;
 import co.com.sk.delivery.account.values.AccountId;
+import co.com.sk.delivery.account.values.Address;
+import co.com.sk.delivery.account.values.Description;
 import co.com.sk.delivery.account.values.Phone;
 import co.com.sk.delivery.account.values.Type;
 import co.com.sk.delivery.generic.values.Name;
@@ -49,5 +53,10 @@ public class Account extends AggregateEvent<AccountId> {
     public void updateClientPhone(Phone phone) {
         appendChange(new ClientPhoneUpdated(phone)).apply();
     }
-
+    public void updateOrderDescription(Description description) {
+        appendChange(new OrderDescriptionUpdated(description)).apply();
+    }
+    public void updateOrderAddress(Address address) {
+        appendChange(new OrderAddressUpdated(address)).apply();
+    }
 }
