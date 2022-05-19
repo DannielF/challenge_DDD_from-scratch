@@ -1,10 +1,13 @@
 package co.com.sk.delivery.account;
 
 import co.com.sk.delivery.account.events.AccountCreated;
+import co.com.sk.delivery.account.events.ClientAdded;
 import co.com.sk.delivery.account.events.ClientNameUpdated;
 import co.com.sk.delivery.account.events.ClientPhoneUpdated;
+import co.com.sk.delivery.account.events.OrderAdded;
 import co.com.sk.delivery.account.events.OrderAddressUpdated;
 import co.com.sk.delivery.account.events.OrderDescriptionUpdated;
+import co.com.sk.delivery.account.events.ReceiptAdded;
 import co.com.sofka.domain.generic.EventChange;
 
 /**
@@ -16,12 +19,17 @@ import co.com.sofka.domain.generic.EventChange;
  */
 public class AccountEventChange extends EventChange {
     public AccountEventChange(Account account) {
-        apply((AccountCreated event) -> {
-            account.client = event.client();
-            account.order = event.order();
-            account.receipt = event.receipt();
-            account.type = event.typeAccount();
-        });
+        apply((AccountCreated event) -> account.type = event.typeAccount());
+
+        apply((ClientAdded event) -> account.client = new Client(event.clientId(), event.name(), event.phone()));
+
+        apply((OrderAdded event) -> account.order = new Order(event.orderId(), event.description(), event.address()));
+
+        apply((ReceiptAdded event) ->
+                account.receipt = new Receipt(event.receiptId(),
+                        event.cost(), event.product(),
+                        event.quantity(), event.date())
+        );
 
         apply((ClientNameUpdated event) -> account.client.updateName(event.name()));
 

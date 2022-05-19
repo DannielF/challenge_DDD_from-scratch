@@ -88,4 +88,21 @@ public class Sales extends AggregateEvent<SalesId> {
     public void updateNumberOfSales(NumberOfSales numberOfSales) {
         appendChange(new NumberOfSalesUpdated(numberOfSales)).apply();
     }
+
+    //Getters
+    public Manager getManager() {
+        return manager;
+    }
+
+    public Vendor getVendor() {
+        return vendor;
+    }
+
+    public Consultant getConsultant() {
+        return consultant;
+    }
+
+    public NumberOfSales getNumberOfSales() {
+        return numberOfSales;
+    }
 }
