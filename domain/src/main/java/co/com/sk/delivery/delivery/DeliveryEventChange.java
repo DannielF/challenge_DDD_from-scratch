@@ -5,6 +5,7 @@ import co.com.sk.delivery.delivery.events.DeliveryCreated;
 import co.com.sk.delivery.delivery.events.InvoiceAdded;
 import co.com.sk.delivery.delivery.events.StateUpdated;
 import co.com.sk.delivery.delivery.events.TransportAdded;
+import co.com.sk.delivery.delivery.events.TypeContractDelivererUpdated;
 import co.com.sk.delivery.delivery.values.State;
 import co.com.sofka.domain.generic.EventChange;
 
@@ -46,6 +47,11 @@ public class DeliveryEventChange extends EventChange {
             var invoiceId = event.invoiceId();
             var invoice = new Invoice(invoiceId, event.constraints(), event.date());
             delivery.invoices.put(invoiceId, invoice);
+        });
+
+        apply((TypeContractDelivererUpdated event) -> {
+            var delivererId = event.delivererId();
+            delivery.deliverers.get(delivererId).changeTypeContract(event.typeContract());
         });
     }
 }

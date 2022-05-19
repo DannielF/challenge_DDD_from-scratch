@@ -6,6 +6,7 @@ import co.com.sk.delivery.delivery.events.DeliveryCreated;
 import co.com.sk.delivery.delivery.events.InvoiceAdded;
 import co.com.sk.delivery.delivery.events.StateUpdated;
 import co.com.sk.delivery.delivery.events.TransportAdded;
+import co.com.sk.delivery.delivery.events.TypeContractDelivererUpdated;
 import co.com.sk.delivery.delivery.values.Constraints;
 import co.com.sk.delivery.delivery.values.DelivererId;
 import co.com.sk.delivery.delivery.values.DeliveryId;
@@ -100,5 +101,9 @@ public class Delivery extends AggregateEvent<DeliveryId> {
      */
     public void addInvoice(InvoiceId invoiceId, Constraints constraints, Date date) {
         appendChange(new InvoiceAdded(invoiceId, constraints, date)).apply();
+    }
+
+    public void updateTypeContractDeliverer(DelivererId delivererId, TypeContract typeContract) {
+        appendChange(new TypeContractDelivererUpdated(delivererId, typeContract)).apply();
     }
 }

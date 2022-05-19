@@ -17,33 +17,15 @@ import co.com.sofka.domain.generic.Command;
 public class CreateAccount extends Command {
 
     private final AccountId accountId;
-    private final Client client;
-    private final Order order;
-    private final Receipt receipt;
     private final Type type;
 
-    public CreateAccount(AccountId accountId, Client client, Order order, Receipt receipt, Type type) {
+    public CreateAccount(AccountId accountId, Type type) {
         this.accountId = accountId;
-        this.client = client;
-        this.order = order;
-        this.receipt = receipt;
         this.type = type;
     }
 
     public AccountId accountId() {
         return accountId;
-    }
-
-    public Client client() {
-        return client;
-    }
-
-    public Order order() {
-        return order;
-    }
-
-    public Receipt receipt() {
-        return receipt;
     }
 
     public Type type() {

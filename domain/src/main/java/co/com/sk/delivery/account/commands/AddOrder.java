@@ -15,23 +15,17 @@ import co.com.sofka.domain.generic.Command;
  */
 public class AddOrder extends Command {
     private final AccountId accountId;
-    private final OrderId orderId;
     private final Description description;
     private final Address address;
 
-    public AddOrder(AccountId accountId, OrderId orderId, Description description, Address address) {
+    public AddOrder(AccountId accountId, Description description, Address address) {
         this.accountId = accountId;
-        this.orderId = orderId;
         this.description = description;
         this.address = address;
     }
 
     public AccountId accountId() {
         return accountId;
-    }
-
-    public OrderId orderId() {
-        return orderId;
     }
 
     public Description description() {

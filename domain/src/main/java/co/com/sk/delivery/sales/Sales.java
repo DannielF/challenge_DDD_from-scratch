@@ -83,10 +83,11 @@ public class Sales extends AggregateEvent<SalesId> {
     /**
      * Update the number of sales
      *
+     * @param salesId       Identity
      * @param numberOfSales Double
      */
-    public void updateNumberOfSales(NumberOfSales numberOfSales) {
-        appendChange(new NumberOfSalesUpdated(numberOfSales)).apply();
+    public void updateNumberOfSales(SalesId salesId, NumberOfSales numberOfSales) {
+        appendChange(new NumberOfSalesUpdated(salesId, numberOfSales)).apply();
     }
 
     //Getters

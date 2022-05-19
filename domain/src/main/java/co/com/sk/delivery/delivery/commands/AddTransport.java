@@ -1,42 +1,40 @@
-package co.com.sk.delivery.account.commands;
+package co.com.sk.delivery.delivery.commands;
 
-import co.com.sk.delivery.account.values.AccountId;
-import co.com.sk.delivery.account.values.Cost;
-import co.com.sk.delivery.account.values.ReceiptId;
+import co.com.sk.delivery.delivery.values.DeliveryId;
 import co.com.sk.delivery.delivery.values.Load;
+import co.com.sk.delivery.delivery.values.Vehicle;
 import co.com.sk.delivery.generic.values.Product;
 import co.com.sk.delivery.generic.values.Quantity;
 import co.com.sofka.domain.generic.Command;
 
 /**
- * AddReceipt class - Command
+ * AddTransport class - Command
  *
  * @author dannielf
  * @version 0.0.1 2022-18-05
  * @since 0.0.1
  */
-public class AddReceipt extends Command {
-    private final AccountId accountId;
-    private final Cost cost;
+public class AddTransport extends Command {
+    private final DeliveryId deliveryId;
+    private final Vehicle vehicle;
     private final Product product;
     private final Quantity quantity;
     private final Load load;
 
-    public AddReceipt
-            (AccountId accountId, Cost cost, Product product, Quantity quantity, Load load) {
-        this.accountId = accountId;
-        this.cost = cost;
+    public AddTransport(DeliveryId deliveryId, Vehicle vehicle, Product product, Quantity quantity, Load load) {
+        this.deliveryId = deliveryId;
+        this.vehicle = vehicle;
         this.product = product;
         this.quantity = quantity;
         this.load = load;
     }
 
-    public AccountId accountId() {
-        return accountId;
+    public DeliveryId deliveryId() {
+        return deliveryId;
     }
 
-    public Cost cost() {
-        return cost;
+    public Vehicle vehicle() {
+        return vehicle;
     }
 
     public Product product() {
