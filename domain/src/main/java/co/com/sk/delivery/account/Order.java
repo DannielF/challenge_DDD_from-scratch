@@ -4,7 +4,6 @@ import co.com.sk.delivery.account.values.Address;
 import co.com.sk.delivery.account.values.Description;
 import co.com.sk.delivery.account.values.OrderId;
 import co.com.sofka.domain.generic.Entity;
-import co.com.sofka.domain.generic.Identity;
 
 /**
  * Order class - Entity

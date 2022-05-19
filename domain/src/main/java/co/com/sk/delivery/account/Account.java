@@ -1,8 +1,12 @@
 package co.com.sk.delivery.account;
 
 import co.com.sk.delivery.account.events.AccountCreated;
+import co.com.sk.delivery.account.events.ClientAdded;
 import co.com.sk.delivery.account.values.AccountId;
+import co.com.sk.delivery.account.values.ClientId;
+import co.com.sk.delivery.account.values.Phone;
 import co.com.sk.delivery.account.values.Type;
+import co.com.sk.delivery.generic.values.Name;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
@@ -37,5 +41,10 @@ public class Account extends AggregateEvent<AccountId> {
         var account = new Account(accountId);
         events.forEach(account::applyEvent);
         return account;
+    }
+
+    public void addClient(Name name, Phone phone) {
+        var clientId = new ClientId("client");
+        appendChange(new ClientAdded(clientId, name, phone)).apply();
     }
 }
