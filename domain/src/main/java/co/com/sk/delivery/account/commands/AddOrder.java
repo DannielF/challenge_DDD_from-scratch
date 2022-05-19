@@ -3,7 +3,6 @@ package co.com.sk.delivery.account.commands;
 import co.com.sk.delivery.account.values.AccountId;
 import co.com.sk.delivery.account.values.Address;
 import co.com.sk.delivery.account.values.Description;
-import co.com.sk.delivery.account.values.OrderId;
 import co.com.sofka.domain.generic.Command;
 
 /**

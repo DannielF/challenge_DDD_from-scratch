@@ -2,7 +2,6 @@ package co.com.sk.delivery.account.commands;
 
 import co.com.sk.delivery.account.values.AccountId;
 import co.com.sk.delivery.account.values.Cost;
-import co.com.sk.delivery.account.values.ReceiptId;
 import co.com.sk.delivery.delivery.values.Load;
 import co.com.sk.delivery.generic.values.Product;
 import co.com.sk.delivery.generic.values.Quantity;
