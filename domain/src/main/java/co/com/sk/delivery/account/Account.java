@@ -1,22 +1,8 @@
 package co.com.sk.delivery.account;
 
 import co.com.sk.delivery.account.events.AccountCreated;
-import co.com.sk.delivery.account.events.ClientAdded;
-import co.com.sk.delivery.account.events.OrderAdded;
-import co.com.sk.delivery.account.events.ReceiptAdded;
 import co.com.sk.delivery.account.values.AccountId;
-import co.com.sk.delivery.account.values.Address;
-import co.com.sk.delivery.account.values.ClientId;
-import co.com.sk.delivery.account.values.Cost;
-import co.com.sk.delivery.account.values.Description;
-import co.com.sk.delivery.account.values.OrderId;
-import co.com.sk.delivery.account.values.Phone;
-import co.com.sk.delivery.account.values.ReceiptId;
 import co.com.sk.delivery.account.values.Type;
-import co.com.sk.delivery.generic.values.Date;
-import co.com.sk.delivery.generic.values.Name;
-import co.com.sk.delivery.generic.values.Product;
-import co.com.sk.delivery.generic.values.Quantity;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
@@ -36,9 +22,9 @@ public class Account extends AggregateEvent<AccountId> {
     protected Client client;
     protected Type type;
 
-    public Account(AccountId accountId, Type type) {
+    public Account(AccountId accountId, Client client, Order order, Receipt receipt ,Type type) {
         super(accountId);
-        appendChange(new AccountCreated(accountId, type)).apply();
+        appendChange(new AccountCreated(accountId, client, order, receipt, type)).apply();
         subscribe(new AccountEventChange(this));
     }
 
@@ -51,20 +37,5 @@ public class Account extends AggregateEvent<AccountId> {
         var account = new Account(accountId);
         events.forEach(account::applyEvent);
         return account;
-    }
-
-    public void addClient(Name name, Phone phone) {
-        var clientId = new ClientId("client");
-        appendChange(new ClientAdded(clientId, name, phone)).apply();
-    }
-
-    public void addOrder(Description description, Address address) {
-        var orderId = new OrderId("order");
-        appendChange(new OrderAdded(orderId, description, address)).apply();
-    }
-
-    public void addReceipt(Cost cost, Product product, Quantity quantity, Date date) {
-        var receiptId = new ReceiptId("receipt");
-        appendChange(new ReceiptAdded(receiptId, cost, product, quantity, date)).apply();
     }
 }
