@@ -32,7 +32,7 @@ public class Account extends AggregateEvent<AccountId> {
 
     public Account(AccountId accountId, Client client, Order order, Receipt receipt ,Type type) {
         super(accountId);
-        appendChange(new AccountCreated(accountId, client, order, receipt, type)).apply();
+        appendChange(new AccountCreated(client, order, receipt, type)).apply();
         subscribe(new AccountEventChange(this));
     }
 
