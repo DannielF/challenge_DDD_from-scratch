@@ -90,7 +90,6 @@ public class Sales extends AggregateEvent<SalesId> {
         appendChange(new NumberOfSalesUpdated(salesId, numberOfSales)).apply();
     }
 
-    //Getters
     public Manager manager() {
         return manager;
     }

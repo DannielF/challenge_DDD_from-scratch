@@ -132,7 +132,6 @@ public class Account extends AggregateEvent<AccountId> {
         appendChange(new OrderAddressUpdated(orderId, address)).apply();
     }
 
-    //Getters
     public Order order() {
         return order;
     }

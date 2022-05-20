@@ -37,6 +37,7 @@ import java.util.Map;
  * @since 0.0.1
  */
 public class Delivery extends AggregateEvent<DeliveryId> {
+
     protected SalesId salesId;
     protected AccountId accountId;
     protected State state;
@@ -105,10 +106,22 @@ public class Delivery extends AggregateEvent<DeliveryId> {
         appendChange(new InvoiceAdded(invoiceId, constraints, date)).apply();
     }
 
+    /**
+     * Update the deliverer's contract
+     *
+     * @param delivererId  Identity
+     * @param typeContract String
+     */
     public void updateTypeContractDeliverer(DelivererId delivererId, TypeContract typeContract) {
         appendChange(new TypeContractDelivererUpdated(delivererId, typeContract)).apply();
     }
 
+    /**
+     * Finish a delivery
+     *
+     * @param state         Enum
+     * @param numberOfSales Double
+     */
     public void finishDelivery(State state, NumberOfSales numberOfSales) {
         appendChange(new DeliveryDone(state, numberOfSales, salesId)).apply();
     }
