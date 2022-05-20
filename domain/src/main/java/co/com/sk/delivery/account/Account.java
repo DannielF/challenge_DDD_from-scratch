@@ -60,35 +60,35 @@ public class Account extends AggregateEvent<AccountId> {
     /**
      * Add a client
      *
-     * @param clientId Identity
-     * @param name     String
-     * @param phone    String
+     * @param name  String
+     * @param phone String
      */
-    public void addClient(ClientId clientId, Name name, Phone phone) {
+    public void addClient(Name name, Phone phone) {
+        var clientId = new ClientId();
         appendChange(new ClientAdded(clientId, name, phone)).apply();
     }
 
     /**
      * Add an order
      *
-     * @param orderId     Identity
      * @param description String
      * @param address     String
      */
-    public void addOrder(OrderId orderId, Description description, Address address) {
+    public void addOrder(Description description, Address address) {
+        var orderId = new OrderId();
         appendChange(new OrderAdded(orderId, description, address)).apply();
     }
 
     /**
      * Add a receipt
      *
-     * @param receiptId Identity
-     * @param cost      Integer
-     * @param product   String
-     * @param date      Instant
-     * @param quantity  Integer
+     * @param cost     Integer
+     * @param product  String
+     * @param date     Instant
+     * @param quantity Integer
      */
-    public void addReceipt(ReceiptId receiptId, Cost cost, Product product, Date date, Quantity quantity) {
+    public void addReceipt(Cost cost, Product product, Date date, Quantity quantity) {
+        var receiptId = new ReceiptId();
         appendChange(new ReceiptAdded(receiptId, cost, product, date, quantity)).apply();
     }
 

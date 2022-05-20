@@ -14,6 +14,9 @@ public class ClientId extends Identity {
         super(id);
     }
 
+    public ClientId() {
+    }
+
     public static ClientId of(String id) {
         return new ClientId(id);
     }

@@ -14,6 +14,9 @@ public class ReceiptId extends Identity {
         super(id);
     }
 
+    public ReceiptId() {
+    }
+
     public static ReceiptId of(String id) {
         return new ReceiptId(id);
     }

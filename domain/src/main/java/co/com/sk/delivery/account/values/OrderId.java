@@ -14,6 +14,9 @@ public class OrderId extends Identity {
         super(id);
     }
 
+    public OrderId() {
+    }
+
     public static OrderId of(String id) {
         return new OrderId(id);
     }
