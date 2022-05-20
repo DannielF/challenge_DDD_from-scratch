@@ -14,6 +14,9 @@ public class DelivererId extends Identity {
         super(id);
     }
 
+    public DelivererId() {
+    }
+
     public static DelivererId of(String id) {
         return new DelivererId(id);
     }

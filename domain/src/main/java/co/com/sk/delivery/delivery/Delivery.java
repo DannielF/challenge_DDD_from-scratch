@@ -71,35 +71,35 @@ public class Delivery extends AggregateEvent<DeliveryId> {
     /**
      * Add a transport
      *
-     * @param transportId Identity
-     * @param vehicle     String
-     * @param product     String
-     * @param quantity    Integer
-     * @param load        Double
+     * @param vehicle  String
+     * @param product  String
+     * @param quantity Integer
+     * @param load     Double
      */
-    public void addTransport(TransportId transportId, Vehicle vehicle, Product product, Quantity quantity, Load load) {
+    public void addTransport(Vehicle vehicle, Product product, Quantity quantity, Load load) {
+        var transportId = new TransportId();
         appendChange(new TransportAdded(transportId, vehicle, product, quantity, load)).apply();
     }
 
     /**
      * Add a deliverer
      *
-     * @param delivererId  Identity
      * @param name         String
      * @param typeContract String
      */
-    public void addDeliverer(DelivererId delivererId, Name name, TypeContract typeContract) {
+    public void addDeliverer(Name name, TypeContract typeContract) {
+        var delivererId = new DelivererId();
         appendChange(new DelivererAdded(delivererId, name, typeContract)).apply();
     }
 
     /**
      * Add an invoices
      *
-     * @param invoiceId   Identity
      * @param constraints String
      * @param date        Instant
      */
-    public void addInvoice(InvoiceId invoiceId, Constraints constraints, Date date) {
+    public void addInvoice(Constraints constraints, Date date) {
+        var invoiceId = new InvoiceId();
         appendChange(new InvoiceAdded(invoiceId, constraints, date)).apply();
     }
 

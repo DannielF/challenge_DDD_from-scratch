@@ -1,0 +1,69 @@
+package co.com.sk.delivery.delivery;
+
+import co.com.sk.delivery.account.values.AccountId;
+import co.com.sk.delivery.delivery.commands.UpdateState;
+import co.com.sk.delivery.delivery.events.DeliveryCreated;
+import co.com.sk.delivery.delivery.events.StateUpdated;
+import co.com.sk.delivery.delivery.values.DeliveryId;
+import co.com.sk.delivery.delivery.values.State;
+import co.com.sk.delivery.sales.values.SalesId;
+import co.com.sofka.business.generic.UseCaseHandler;
+import co.com.sofka.business.repository.DomainEventRepository;
+import co.com.sofka.business.support.RequestCommand;
+import co.com.sofka.domain.generic.DomainEvent;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+/**
+ * UpdateStateUseCaseTest
+ *
+ * @author dannielf
+ * @version 0.0.1
+ * @since 0.0.1
+ */
+@ExtendWith(MockitoExtension.class)
+class UpdateStateUseCaseTest {
+
+    @InjectMocks
+    private UpdateStateUseCase useCase;
+
+    @Mock
+    private DomainEventRepository repository;
+
+    @Test
+    void updateStateAllOk() {
+        var deliveryId = DeliveryId.of("ddd");
+        var state = new State(State.states.DONE);
+        var command = new UpdateState(deliveryId, state);
+
+        when(repository.getEventsBy(command.deliveryId().value())).thenReturn(history());
+        useCase.addRepository(repository);
+
+        var events = UseCaseHandler.getInstance()
+                .syncExecutor(useCase, new RequestCommand<>(command))
+                .orElseThrow()
+                .getDomainEvents();
+
+        var event = (StateUpdated) events.get(0);
+        assertEquals(state, event.state());
+    }
+
+    private List<DomainEvent> history() {
+        var salesId = SalesId.of("SSS");
+        var accountId = AccountId.of("AAA");
+        var state = new State(State.states.IN_PROGRESS);
+
+        var event = new DeliveryCreated(salesId, accountId, state);
+        event.setAggregateRootId("xxx");
+
+        return List.of(event);
+    }
+}

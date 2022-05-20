@@ -14,6 +14,9 @@ public class TransportId extends Identity {
         super(id);
     }
 
+    public TransportId() {
+    }
+
     public static TransportId of(String id) {
         return new TransportId(id);
     }
