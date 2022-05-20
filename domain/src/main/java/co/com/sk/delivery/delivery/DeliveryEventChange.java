@@ -2,6 +2,7 @@ package co.com.sk.delivery.delivery;
 
 import co.com.sk.delivery.delivery.events.DelivererAdded;
 import co.com.sk.delivery.delivery.events.DeliveryCreated;
+import co.com.sk.delivery.delivery.events.DeliveryDone;
 import co.com.sk.delivery.delivery.events.InvoiceAdded;
 import co.com.sk.delivery.delivery.events.StateUpdated;
 import co.com.sk.delivery.delivery.events.TransportAdded;
@@ -53,5 +54,7 @@ public class DeliveryEventChange extends EventChange {
             var delivererId = event.delivererId();
             delivery.deliverers.get(delivererId).changeTypeContract(event.typeContract());
         });
+
+        apply((DeliveryDone event) -> delivery.state = event.state());
     }
 }

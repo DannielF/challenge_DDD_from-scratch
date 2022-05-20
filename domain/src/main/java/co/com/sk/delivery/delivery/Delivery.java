@@ -3,6 +3,7 @@ package co.com.sk.delivery.delivery;
 import co.com.sk.delivery.account.values.AccountId;
 import co.com.sk.delivery.delivery.events.DelivererAdded;
 import co.com.sk.delivery.delivery.events.DeliveryCreated;
+import co.com.sk.delivery.delivery.events.DeliveryDone;
 import co.com.sk.delivery.delivery.events.InvoiceAdded;
 import co.com.sk.delivery.delivery.events.StateUpdated;
 import co.com.sk.delivery.delivery.events.TransportAdded;
@@ -20,6 +21,7 @@ import co.com.sk.delivery.generic.values.Date;
 import co.com.sk.delivery.generic.values.Name;
 import co.com.sk.delivery.generic.values.Product;
 import co.com.sk.delivery.generic.values.Quantity;
+import co.com.sk.delivery.sales.values.NumberOfSales;
 import co.com.sk.delivery.sales.values.SalesId;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
@@ -105,5 +107,9 @@ public class Delivery extends AggregateEvent<DeliveryId> {
 
     public void updateTypeContractDeliverer(DelivererId delivererId, TypeContract typeContract) {
         appendChange(new TypeContractDelivererUpdated(delivererId, typeContract)).apply();
+    }
+
+    public void finishDelivery(State state, NumberOfSales numberOfSales) {
+        appendChange(new DeliveryDone(state, numberOfSales, salesId)).apply();
     }
 }
